@@ -1,0 +1,2 @@
+Add transcript and translate to the sequence 
+Also want to automatically assign gene to transcript immediately a create a gene

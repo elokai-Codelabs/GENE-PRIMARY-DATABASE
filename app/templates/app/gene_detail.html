@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>{{ gene.name }}</title>
+    <!-- Bootstrap CSS -->
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
+    <!-- Custom CSS -->
+    <style>
+      /* Add custom styles here */
+      body {
+        background-color: #f8f9fa;
+      }
+      h1 {
+        color: #007bff;
+        text-align: center;
+        margin-top: 50px;
+      }
+      h2 {
+        color: #343a40;
+        margin-top: 30px;
+      }
+      table {
+        margin-top: 30px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>{{ gene.name }}</h1>
+      <p>Here are the transcripts associated with the gene {{ gene.name }}.</p>
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Sequence</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for gene in gene.transcript_set.all %}
+          <tr>
+            <td>{{ gene.name }}</td>
+            <td>{{ gene.sequence }}</td>
+          </tr>
+          {% empty %}
+          <tr>
+            <td colspan="2">No transcripts found for this gene.</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      <p>Here are the corresponding mRNA for {{ gene.name }}.</p>
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>mRNA</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for gene in transcripts %}
+          <tr>
+            <td>{{ gene.name }}</td>
+            <td>{{ gene.sequence }}</td>
+          </tr>
+          {% empty %}
+          <tr>
+            <td colspan="2">No transcripts found for this gene.</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      <a href="{% url 'gene_list' %}" class="btn btn-secondary"
+        >Back to Gene List</a
+      >
+    </div>
+    <!-- Bootstrap JS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  </body>
+</html>

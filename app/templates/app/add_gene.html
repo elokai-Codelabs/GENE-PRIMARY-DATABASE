@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>{{ gene.name }}</title>
+    <!-- Bootstrap CSS -->
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
+    <!-- Custom CSS -->
+    <style>
+      /* Add custom styles here */
+      body {
+        background-color: #f8f9fa;
+      }
+      h1 {
+        color: #007bff;
+        text-align: center;
+        margin-top: 50px;
+      }
+      h2 {
+        color: #343a40;
+        margin-top: 30px;
+      }
+      table {
+        margin-top: 30px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      {% if messages %} {% for message in messages %}
+      <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+      {% endfor %} {% endif %}
+      <form method="post">
+        {% csrf_token %}
+        <div class="form-group">
+          <label for="name">Gene Name</label>
+          <input type="text" class="form-control" id="name" name="name" />
+          <label for="name">Sequence</label>
+          <input
+            type="text"
+            class="form-control"
+            id="sequence"
+            name="sequence"
+          />
+        </div>
+        <button type="submit" class="btn btn-primary">Add Gene</button>
+      </form>
+      <a href="{% url 'gene_list' %}" class="btn btn-secondary"
+        >Back to Gene List</a
+      >
+    </div>
+    <!-- Bootstrap JS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  </body>
+</html>

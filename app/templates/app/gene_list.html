@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Gene Search Results</title>
+    <!-- Bootstrap CSS -->
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
+    <!-- Custom CSS -->
+    <style>
+      /* Add custom styles here */
+      body {
+        background-color: #f8f9fa;
+      }
+      h1 {
+        color: #007bff;
+        text-align: center;
+        margin-top: 50px;
+      }
+      h2 {
+        color: #343a40;
+        margin-top: 30px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Gene Search Results</h1>
+      <p>Showing results for {{genes_count}} genes</p>
+
+      <ul class="list-group">
+        {% for gene in genes %}
+        <li class="list-group-item">
+          <a href="{% url 'gene_detail' gene.pk %}">{{ gene.name }}</a>
+        </li>
+        {% empty %}
+        <li class="list-group-item">No genes found.</li>
+        {% endfor %}
+      </ul>
+
+      <a href="{% url 'gene_list' %}">&laquo; Back to all genes</a>
+    </div>
+    <!-- Bootstrap JS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  </body>
+</html>

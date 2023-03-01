@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Upload FASTA File</title>
+    <!-- Bootstrap CSS -->
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
+    <!-- Custom CSS -->
+    <style>
+      /* Add custom styles here */
+      body {
+        background-color: #f8f9fa;
+      }
+      h1 {
+        color: #007bff;
+        text-align: center;
+        margin-top: 50px;
+      }
+      h2 {
+        color: #343a40;
+        margin-top: 30px;
+      }
+      form {
+        margin-bottom: 30px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Upload FASTA File</h1>
+      <p>
+        Please upload a FASTA file containing gene sequences.
+      </p>
+
+      <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="form-group">
+          <label for="fasta_file">FASTA File:</label>
+          <input type="file" class="form-control-file" id="fasta_file" name="fasta_file">
+        </div>
+        <button type="submit" class="btn btn-primary">Upload</button>
+      </form>
+      <a href="{% url 'gene_list' %}">&laquo; Back to all genes</a>
+
+
+    </div>
+    <!-- Bootstrap JS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min
