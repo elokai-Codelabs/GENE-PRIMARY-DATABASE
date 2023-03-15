@@ -30,7 +30,7 @@ def gene_detail(request, pk):
     trans_gene = Seq(str(gene)).complement_rna()
     return render(request, 'app/gene_detail.html', {'gene': gene,'transcripts':trans_gene})
 
-
+    
 
 def gene_search(request):
     gene_name = request.GET.get('gene_name')
