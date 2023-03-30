@@ -11,7 +11,7 @@
     <style>
       /* Add custom styles here */
       body {
-        background-color: #f8f9fa;
+        background: url("/static/image.jpg") 50% 0 no-repeat fixed;
       }
       h1 {
         color: #007bff;
@@ -29,23 +29,33 @@
   </head>
   <body>
     <div class="container">
-      {% if messages %} {% for message in messages %}
-      <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+      <strong
+        >{% if messages %} {% for message in messages %}
+        <div class="alert alert-{{ message.tags }}">{{ message }}</div></strong
+      >
       {% endfor %} {% endif %}
+      <br /><br /><br /><br />
       <form method="post">
         {% csrf_token %}
         <div class="form-group">
-          <label for="name">Gene Name</label>
-          <input type="text" class="form-control" id="name" name="name" />
-          <label for="name">Sequence</label>
-          <input
-            type="text"
-            class="form-control"
-            id="sequence"
-            name="sequence"
-          />
+          <strong>
+            <label for="name">Gene Name</label>
+            <input type="text" class="form-control" id="name" name="name" />
+            <label for="name">Sequence</label>
+
+            <textarea
+              name="sequence"
+              pattern="[ATCG]*"
+              required
+              title="Sequence can only contain A, T, C, and G."
+              class="form-control"
+              id="sequence"
+              cols="30"
+              rows="10"
+            ></textarea>
+          </strong>
         </div>
-        <button type="submit" class="btn btn-primary">Add Gene</button>
+        <button type="submit" class="btn btn-warning">Add Gene</button>
       </form>
       <a href="{% url 'gene_list' %}" class="btn btn-secondary"
         >Back to Gene List</a

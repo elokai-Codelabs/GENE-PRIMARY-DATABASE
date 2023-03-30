@@ -15,19 +15,37 @@
     <style>
       /* Add custom styles here */
       body {
-        background-color: #f8f9fa;
+        background: url("/static/image.jpg") 50% 0 no-repeat fixed;
       }
       h1 {
-        color: #007bff;
+        color: #f9fafc;
         text-align: center;
         margin-top: 50px;
       }
       h2 {
-        color: #343a40;
+        color: #96e5aa;
         margin-top: 30px;
+      }
+
+      strong {
+        color: antiquewhite;
+      }
+
+      p {
+        color: antiquewhite;
       }
       form {
         margin-bottom: 30px;
+      }
+      .sides {
+        width: 45%;
+        padding: 10px;
+      }
+      .left {
+        float: left;
+      }
+      .right {
+        float: right;
       }
     </style>
   </head>
@@ -36,16 +54,23 @@
       <a class="navbar-brand btn btn-primary ml-2" href="{% url 'gene_list' %}"
         >HOME</a
       >
+      {% if user.is_authenticated %}
 
       <a class="navbar-brand btn btn-primary ml-2" href="{% url 'upload' %}"
         >Upload Gene Dataset</a
       >
       <a class="navbar-brand btn btn-primary ml-2" href="{% url 'add' %}">
-        Manually Add Gene</a
+        Add Gene manually</a
       >
-      <a class="navbar-brand btn btn-primary ml-2" href="{% url 'add' %}"
-        >Manually Add Transcript</a
+      <a class="navbar-brand btn btn-primary ml-2" href="{% url 'logout' %}">
+        Logout</a
       >
+      {% else %}
+
+      <a class="navbar-brand btn btn-primary ml-2" href="{% url 'login' %}">
+        Login</a
+      >
+      {% endif %}
 
       <div class="collapse navbar-collapse" id="navbarNav">
         <form
@@ -68,24 +93,36 @@
         </form>
       </div>
     </nav>
-
+    <br /><br />
     <div class="container" style="margin-top: 80px" style="margin-top: 1rem">
       <h1>Welcome to the Gene Database!</h1>
+      <strong
+        >Add ppt to it, to expplain the project and functionalities</strong
+      >
       <p>
         This site contains a collection of genes and their associated
         transcripts.
       </p>
 
       <h2>
-        Browse Genes &nbsp;<span style="color: blue"
+        Browse Genes &nbsp;<span style="color: rgb(246, 246, 249)"
           >Total Genes &nbsp;
-          <span style="color: red">&nbsp;{{genes_count}}</span></span
+          <span style="color: rgb(245, 9, 9)">&nbsp;{{genes_count}}</span></span
         >
       </h2>
       <ul class="list-group">
         {% for gene in genes %}
         <li class="list-group-item">
-          <a href="{% url 'gene_detail' gene.pk %}">{{ gene.name }}</a>
+          <a href="{% url 'gene_detail' gene.pk %}" class="sides left"
+            >{{ gene.name }}
+          </a>
+          <span class="sides right">
+            <a href="{% url 'download_gene' gene.id %} ">Download as fasta</a>
+            &nbsp;&nbsp; &nbsp;&nbsp;
+            <a href="{% url 'download_gene_as_pdf' gene_id=gene.id %}"
+              >Download PDF</a
+            >
+          </span>
         </li>
         {% empty %}
         <li class="list-group-item">No genes found.</li>

@@ -1,2 +1,6 @@
-Add transcript and translate to the sequence 
-Also want to automatically assign gene to transcript immediately a create a gene
+Restrict to only DNA not any test 
+Login required to be able to perform CRUD operations
+Normal users search, views, download
+Nice UI for the project
+Documentation for the project
+Ppt for the project

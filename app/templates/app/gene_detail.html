@@ -11,7 +11,7 @@
     <style>
       /* Add custom styles here */
       body {
-        background-color: #f8f9fa;
+        /* background: url("/static/image.jpg") 50% 0 no-repeat fixed; */
       }
       h1 {
         color: #007bff;
@@ -28,6 +28,35 @@
     </style>
   </head>
   <body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top p-4">
+      <a class="navbar-brand btn btn-primary ml-2" href="{% url 'gene_list' %}"
+        >HOME</a
+      >
+      {% if user.is_authenticated %}
+
+      <a class="navbar-brand btn btn-primary ml-2" href="{% url 'upload' %}"
+        >Upload Gene Dataset</a
+      >
+      <a class="navbar-brand btn btn-primary ml-2" href="{% url 'add' %}">
+        Add Gene manually</a
+      >
+      <a class="navbar-brand btn btn-primary ml-2" href="{% url 'logout' %}">
+        Logout</a
+      >
+      {% else %}
+
+      <a class="navbar-brand btn btn-primary ml-2" href="{% url 'login' %}">
+        Login</a
+      >
+      {% endif %}
+    </nav>
+    <br /><br />
+    {% if error_message %}
+    <p class="alert alert-danger">{{ error_message }}</p>
+    {% else %}
+    <!-- your existing html code for gene detail -->
+    {% endif %}
+
     <div class="container">
       <h1>{{ gene.name }}</h1>
       <p>Here are the transcripts associated with the gene {{ gene.name }}.</p>
@@ -44,6 +73,7 @@
             <td>{{ gene.name }}</td>
             <td>{{ gene.sequence }}</td>
           </tr>
+
           {% empty %}
           <tr>
             <td colspan="2">No transcripts found for this gene.</td>
@@ -51,25 +81,48 @@
           {% endfor %}
         </tbody>
       </table>
-      <p>Here are the corresponding mRNA for {{ gene.name }}.</p>
+      <p>
+        Here are the corresponding <strong>mRNA</strong> and
+        <strong>Protein</strong> for {{ gene.name }}.
+      </p>
+      <!-- mRNA table start -->
       <table class="table table-bordered">
         <thead>
           <tr>
-            <th>Name</th>
             <th>mRNA</th>
           </tr>
         </thead>
         <tbody>
-          {% for gene in transcripts %}
+          {% if gene %}
           <tr>
-            <td>{{ gene.name }}</td>
-            <td>{{ gene.sequence }}</td>
+            <td>{{ mRNA_sequence}}</td>
           </tr>
-          {% empty %}
+
+          {% else %}
           <tr>
             <td colspan="2">No transcripts found for this gene.</td>
           </tr>
-          {% endfor %}
+          {% endif %}
+        </tbody>
+      </table>
+      <!-- mRNA table ends -->
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th>Protein</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% if gene %}
+
+          <tr>
+            <td>{{ protein_sequence }}</td>
+          </tr>
+          {% else %}
+          <tr>
+            <td colspan="2">No transcripts found for this gene.</td>
+          </tr>
+          {% endif %}
         </tbody>
       </table>
       <a href="{% url 'gene_list' %}" class="btn btn-secondary"
